@@ -1,7 +1,5 @@
 # PedeUmTrem — Plataforma PWA de Delivery Local (Beta)
 
-<div align="center">
-
 # 🚂 PedeUmTrem
 
 **Marketplace de delivery local em formato PWA, conectando clientes a restaurantes, lanchonetes, pizzarias e açaiterias da sua cidade.**
