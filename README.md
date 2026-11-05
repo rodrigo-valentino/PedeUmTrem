@@ -182,7 +182,7 @@ Processo de desenvolvimento em etapas:
 
 [![LinkedIn](https://shields.io)](https://www.linkedin.com/in/rodrigo-valentino/)
 [![GitHub](https://shields.io)](https://github.com/rodrigo-valentino)
-[![E-mail](https://shields.io)](rodrigovalentino.rv@gmail.com)
+[![E-mail](https://shields.io)] rodrigovalentino.rv@gmail.com
 
 ## 🏗️ Arquitetura 
 
