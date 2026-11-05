@@ -1,0 +1,33 @@
+Apareceram 3 lojas, devia ser o adm que escolhe quais vão pro destaque
+Ao pesquisar loja e restaurante os destaques não continuam lá (cliente)
+Colocar som para quando chegar nova entrega para os entregadores também (entregadores)
+Mensagem de confirmação ao excluir itens do cardápio (painel do lojista)
+Implementar fase 2!
+
+Faça uma auditoria completa dos formulários e campos de entrada do projeto PedeUmTrem.
+
+Meu objetivo é melhorar a experiência do usuário (UX), reduzindo a digitação manual e evitando erros de preenchimento.
+
+Identifique os campos que podem ser substituídos ou melhorados com:
+
+1. Máscaras automáticas para valores monetários em R$, telefone, CPF, CNPJ e CEP.
+2. Seletores de horário para funcionamento dos estabelecimentos, permitindo múltiplos períodos, dias fechados e funcionamento 24 horas.
+3. Preenchimento automático de endereço através do CEP.
+4. Seletores de quantidade, unidades de medida e estoque.
+5. Cálculo automático de descontos e preços promocionais.
+6. Autocomplete para categorias, marcas e informações recorrentes.
+7. Campos condicionais conforme o tipo de estabelecimento.
+8. Validação em tempo real.
+9. Salvamento automático de rascunhos.
+10. Possibilidade de duplicar produtos cadastrados.
+
+Crie componentes reutilizáveis para esses controles, mantendo a identidade visual atual do PedeUmTrem.
+
+IMPORTANTE:
+- Primeiro analise a estrutura existente e identifique os formulários.
+- Não altere funcionalidades existentes sem necessidade.
+- Preserve a compatibilidade com o banco de dados atual.
+- Não crie dados fictícios.
+- Não faça uma reformulação visual completa.
+- Implemente as melhorias gradualmente, começando pelos campos monetários e horários de funcionamento.
+- Teste os campos e suas validações antes de concluir.

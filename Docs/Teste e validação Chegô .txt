@@ -1,0 +1,716 @@
+Teste e validação Rango
+
+# Documento de Requisitos de Software
+
+## Plataforma de Delivery Local — Versão 1.0
+
+**Tipo de sistema:** Progressive Web App (PWA)
+**Categoria:** Marketplace de pedidos de alimentação
+**Público-alvo:** Clientes, estabelecimentos parceiros e administrador da plataforma
+**Modelo de negócio:** Comissão de 10% por pedido concluído
+**Status:** Especificação inicial para orientar o desenvolvimento
+
+---
+
+## 1. Visão geral do sistema
+
+O sistema tem como objetivo centralizar restaurantes, lanchonetes, pizzarias, açaiterias e outros estabelecimentos de alimentação em uma única plataforma digital.
+
+Os clientes poderão consultar cardápios, selecionar produtos, montar pedidos e acompanhar seu andamento. Os estabelecimentos receberão os pedidos por meio de um painel próprio, podendo aceitá-los, recusá-los e atualizar seu status.
+
+A plataforma será responsável pela organização digital dos pedidos, pelo controle das vendas realizadas por meio do sistema e pelo cálculo das comissões devidas.
+
+O estabelecimento continuará responsável pela preparação dos alimentos, pelo recebimento dos pagamentos e pela entrega dos pedidos.
+
+### 1.1 Objetivos do projeto
+
+- Reunir os estabelecimentos de alimentação em um único ambiente digital.
+- Facilitar a busca por restaurantes e a realização de pedidos.
+- Permitir que os estabelecimentos gerenciem pedidos sem alterar significativamente sua operação atual.
+- Gerar receita para a plataforma por meio de uma comissão de 10% por pedido concluído.
+- Minimizar os custos de desenvolvimento e manutenção.
+- Permitir a instalação da plataforma na tela inicial de celulares e computadores compatíveis, sem exigir publicação inicial em lojas de aplicativos.
+
+### 1.2 Premissas do negócio
+
+1. O restaurante define os preços praticados na plataforma.
+2. O restaurante pode definir sua taxa de entrega.
+3. A comissão padrão da plataforma será de 10% sobre o valor dos produtos vendidos, sem incluir a taxa de entrega.
+4. O pagamento será realizado diretamente ao estabelecimento por Pix ou na entrega.
+5. A plataforma não manterá saldo financeiro dos restaurantes nem processará pagamentos na primeira versão.
+6. O restaurante utilizará seus próprios meios para preparar e entregar os pedidos.
+7. Cada estabelecimento terá acesso apenas aos próprios pedidos e dados operacionais autorizados.
+
+---
+
+## 2. Atores do sistema
+
+### 2.1 Cliente
+
+Pessoa que acessa a plataforma para consultar estabelecimentos, visualizar produtos e realizar pedidos.
+
+### 2.2 Estabelecimento
+
+Restaurante ou comércio de alimentação cadastrado na plataforma. Será responsável por manter seu cardápio atualizado, confirmar pedidos e realizar a entrega.
+
+### 2.3 Administrador
+
+Responsável pela administração geral do sistema, cadastro e aprovação de estabelecimentos, configuração das regras comerciais, acompanhamento dos pedidos e fiscalização das comissões.
+
+### 2.4 Serviço de infraestrutura
+
+Conjunto de serviços responsáveis por armazenar os dados, autenticar usuários, processar as regras de negócio e disponibilizar notificações e atualizações dos pedidos.
+
+---
+
+## 3. Requisitos funcionais
+
+Os requisitos funcionais descrevem as ações que o sistema deverá executar.
+
+### 3.1 Área do cliente
+
+| Código | Requisito                                                                                           |
+| ------ | --------------------------------------------------------------------------------------------------- |
+| RF01   | O sistema deverá permitir que o cliente visualize os estabelecimentos cadastrados e ativos.         |
+| RF02   | O sistema deverá organizar os estabelecimentos por categorias.                                      |
+| RF03   | O sistema deverá permitir pesquisar estabelecimentos e produtos pelo nome.                          |
+| RF04   | O sistema deverá exibir nome, descrição, preço, imagem e disponibilidade dos produtos.              |
+| RF05   | O sistema deverá exibir o horário de funcionamento e a situação atual do estabelecimento.           |
+| RF06   | O sistema deverá permitir adicionar, remover e alterar quantidades de produtos no carrinho.         |
+| RF07   | O sistema deverá calcular o subtotal dos produtos, a taxa de entrega e o valor total do pedido.     |
+| RF08   | O sistema deverá permitir informar endereço, telefone e observações necessárias para a entrega.     |
+| RF09   | O sistema deverá permitir selecionar Pix ou pagamento na entrega.                                   |
+| RF10   | O sistema deverá apresentar um resumo do pedido antes da confirmação.                               |
+| RF11   | O sistema deverá gerar um pedido com identificador único após a confirmação válida do cliente.      |
+| RF12   | O sistema deverá permitir consultar o status e o histórico dos pedidos do cliente.                  |
+| RF13   | O sistema deverá informar quando o restaurante aceitar, recusar ou atualizar o pedido.              |
+| RF14   | O sistema deverá permitir consultar os dados de contato do estabelecimento responsável pelo pedido. |
+
+### 3.2 Área do estabelecimento
+
+| Código | Requisito                                                                                        |
+| ------ | ------------------------------------------------------------------------------------------------ |
+| RF15   | O sistema deverá permitir acesso autenticado ao painel do estabelecimento.                       |
+| RF16   | O sistema deverá permitir cadastrar e editar informações do estabelecimento.                     |
+| RF17   | O sistema deverá permitir cadastrar, editar, desativar e organizar produtos.                     |
+| RF18   | O sistema deverá permitir configurar preços, imagens, descrições e disponibilidade dos produtos. |
+| RF19   | O sistema deverá permitir configurar horários de funcionamento e períodos de fechamento.         |
+| RF20   | O sistema deverá disponibilizar uma lista de pedidos recebidos.                                  |
+| RF21   | O sistema deverá permitir aceitar ou recusar pedidos recebidos.                                  |
+| RF22   | O sistema deverá permitir informar o tempo estimado de preparo.                                  |
+| RF23   | O sistema deverá permitir atualizar o status dos pedidos.                                        |
+| RF24   | O sistema deverá permitir consultar pedidos anteriores e seus respectivos valores.               |
+| RF25   | O sistema deverá permitir consultar o valor da comissão gerada por cada pedido concluído.        |
+| RF26   | O sistema deverá permitir consultar o total de comissões pendentes e já registradas como pagas.  |
+| RF27   | O sistema deverá permitir pausar temporariamente o recebimento de novos pedidos.                 |
+
+### 3.3 Área administrativa
+
+| Código | Requisito                                                                                                    |
+| ------ | ------------------------------------------------------------------------------------------------------------ |
+| RF28   | O sistema deverá permitir autenticação administrativa.                                                       |
+| RF29   | O sistema deverá permitir cadastrar, aprovar, editar, suspender e reativar estabelecimentos.                 |
+| RF30   | O sistema deverá permitir consultar clientes, estabelecimentos e pedidos registrados.                        |
+| RF31   | O sistema deverá permitir consultar vendas por estabelecimento e período.                                    |
+| RF32   | O sistema deverá calcular automaticamente a comissão devida à plataforma.                                    |
+| RF33   | O sistema deverá permitir registrar o pagamento das comissões pelos estabelecimentos.                        |
+| RF34   | O sistema deverá permitir consultar pedidos cancelados, recusados e concluídos.                              |
+| RF35   | O sistema deverá permitir consultar relatórios de vendas, comissões e inadimplência.                         |
+| RF36   | O sistema deverá manter um registro das principais ações administrativas que afetem pedidos e comissões.     |
+| RF37   | O sistema deverá permitir configurar a comissão padrão e eventuais exceções autorizadas por estabelecimento. |
+
+### 3.4 Notificações e atualizações
+
+| Código | Requisito                                                                                      |
+| ------ | ---------------------------------------------------------------------------------------------- |
+| RF38   | O sistema deverá notificar o estabelecimento quando um novo pedido for recebido.               |
+| RF39   | O sistema deverá atualizar a situação do pedido para o cliente após mudanças relevantes.       |
+| RF40   | O sistema deverá informar o cliente quando o pedido for recusado ou cancelado.                 |
+| RF41   | O sistema deverá permitir consultar pedidos que ainda aguardam confirmação do estabelecimento. |
+
+---
+
+## 4. Regras de negócio
+
+As regras de negócio definem como o sistema deverá se comportar em situações específicas.
+
+### RN01 — Comissão da plataforma
+
+A comissão padrão será de 10% sobre o valor dos produtos de um pedido concluído.
+
+**Exemplo:**
+
+- Produtos: R$ 40,00
+- Taxa de entrega: R$ 5,00
+- Total pago pelo cliente: R$ 45,00
+- Comissão da plataforma: R$ 4,00
+- Valor destinado ao restaurante antes de outros custos: R$ 36,00
+- Taxa de entrega: R$ 5,00, destinada ao estabelecimento conforme sua política de entrega.
+
+A comissão não incidirá sobre a taxa de entrega na regra padrão.
+
+### RN02 — Formação de preços
+
+Cada estabelecimento poderá definir os preços dos produtos anunciados na plataforma, respeitando as regras comerciais e legais aplicáveis.
+
+### RN03 — Confirmação do pedido
+
+Um pedido deverá ser registrado inicialmente como aguardando confirmação.
+
+O estabelecimento deverá aceitar ou recusar o pedido antes de iniciar sua preparação.
+
+### RN04 — Recusa do pedido
+
+Quando um estabelecimento recusar um pedido, o sistema deverá registrar o motivo, quando informado, e comunicar o cliente.
+
+Pedidos recusados não gerarão comissão.
+
+### RN05 — Conclusão do pedido
+
+Somente pedidos marcados como concluídos poderão gerar comissão definitiva.
+
+O sistema deverá manter o histórico das mudanças de status para permitir auditoria.
+
+### RN06 — Cancelamentos
+
+O sistema deverá registrar o responsável pelo cancelamento, o motivo informado e o status anterior do pedido.
+
+O tratamento financeiro e da comissão de pedidos cancelados deverá seguir uma política de cancelamento previamente definida.
+
+### RN07 — Pagamentos
+
+O sistema não processará pagamentos na primeira versão.
+
+O cliente pagará diretamente ao estabelecimento por Pix ou na entrega, conforme as opções oferecidas pelo restaurante.
+
+### RN08 — Responsabilidade pela entrega
+
+A entrega será organizada pelo estabelecimento. O sistema não terá módulo próprio de entregadores na primeira versão.
+
+### RN09 — Disponibilidade de produtos
+
+Produtos indisponíveis não poderão ser adicionados a novos pedidos.
+
+### RN10 — Registro histórico
+
+Os preços, as quantidades, os valores, a taxa de entrega e o percentual de comissão vigentes deverão ser registrados no momento da realização do pedido. Alterações posteriores no cardápio não deverão modificar pedidos antigos.
+
+### RN11 — Apuração das comissões
+
+O sistema deverá registrar as comissões geradas e permitir o fechamento periódico com cada estabelecimento. A frequência de fechamento e o prazo de pagamento deverão ser definidos contratualmente.
+
+### RN12 — Integridade do pedido
+
+O cliente não poderá alterar os itens de um pedido depois que o estabelecimento o aceitar. Alterações excepcionais deverão seguir um procedimento controlado, com registro no histórico.
+
+---
+
+## 5. Fluxo principal de um pedido
+
+1. O cliente acessa a plataforma.
+2. Seleciona um estabelecimento disponível.
+3. Consulta o cardápio.
+4. Adiciona produtos ao carrinho.
+5. Informa endereço, telefone e observações.
+6. Seleciona Pix ou pagamento na entrega.
+7. Confere o resumo e confirma o pedido.
+8. O sistema registra o pedido como **Aguardando confirmação**.
+9. O estabelecimento recebe uma notificação.
+10. O estabelecimento aceita ou recusa o pedido.
+11. Se aceito, o sistema registra o tempo estimado de preparo.
+12. O estabelecimento prepara o pedido e atualiza seu status.
+13. O estabelecimento realiza a entrega.
+14. O pedido é marcado como concluído.
+15. O sistema calcula e registra a comissão devida à plataforma.
+
+Se o estabelecimento recusar o pedido, o sistema deverá comunicar o cliente e encerrar o fluxo sem gerar comissão.
+
+---
+
+## 6. Estados do pedido
+
+O sistema deverá trabalhar com estados controlados para evitar inconsistências.
+
+| Estado                 | Significado                                           |
+| ---------------------- | ----------------------------------------------------- |
+| Aguardando confirmação | Pedido enviado e ainda não aceito ou recusado.        |
+| Aceito                 | Estabelecimento confirmou o pedido.                   |
+| Em preparação          | Restaurante está preparando os produtos.              |
+| Pronto para entrega    | Pedido está pronto para sair.                         |
+| Saiu para entrega      | Estabelecimento informou que o pedido está a caminho. |
+| Concluído              | Pedido foi entregue e finalizado.                     |
+| Recusado               | Estabelecimento não aceitou o pedido.                 |
+| Cancelado              | Pedido foi cancelado conforme as regras aplicáveis.   |
+
+Nem todos os estados precisarão ser utilizados por todos os estabelecimentos. O sistema deverá impedir transições inválidas, como concluir um pedido que nunca foi aceito.
+
+---
+
+## 7. Requisitos não funcionais
+
+| Código | Requisito                                                                                                            |
+| ------ | -------------------------------------------------------------------------------------------------------------------- |
+| RNF01  | A interface deverá funcionar em celulares, tablets e computadores.                                                   |
+| RNF02  | A aplicação deverá ser instalável como PWA em navegadores compatíveis.                                               |
+| RNF03  | O sistema deverá utilizar conexão HTTPS em produção.                                                                 |
+| RNF04  | As senhas e credenciais deverão ser protegidas por mecanismos seguros de autenticação.                               |
+| RNF05  | O acesso aos dados deverá respeitar as permissões de cada perfil.                                                    |
+| RNF06  | Um estabelecimento não poderá consultar ou alterar pedidos pertencentes a outro estabelecimento.                     |
+| RNF07  | O sistema deverá validar os dados enviados pelo cliente e pelo estabelecimento tanto na interface quanto no backend. |
+| RNF08  | Os cálculos de valores e comissões deverão ser realizados no backend, utilizando precisão monetária adequada.        |
+| RNF09  | O sistema deverá impedir duplicidade de pedidos causada por envios repetidos, quando tecnicamente aplicável.         |
+| RNF10  | A arquitetura deverá permitir adicionar novos estabelecimentos sem modificar a estrutura central do sistema.         |
+| RNF11  | O sistema deverá possuir rotina de backup e procedimento de recuperação dos dados.                                   |
+| RNF12  | O sistema deverá registrar erros relevantes para facilitar diagnóstico e manutenção.                                 |
+| RNF13  | A interface deverá apresentar mensagens claras de erro, confirmação e carregamento.                                  |
+| RNF14  | Os dados pessoais deverão ser tratados de acordo com a LGPD e utilizados somente para finalidades legítimas.         |
+| RNF15  | O sistema deverá manter consistência entre pedidos, valores registrados e comissões calculadas.                      |
+
+---
+
+## 8. Estrutura inicial dos dados
+
+O banco de dados deverá contemplar, no mínimo, as seguintes entidades.
+
+### Usuário
+
+- Identificador
+- Nome
+- E-mail
+- Telefone
+- Credenciais de autenticação
+- Perfil de acesso
+- Situação da conta
+- Data de criação
+
+### Estabelecimento
+
+- Identificador
+- Nome comercial
+- Descrição
+- Endereço
+- Telefone
+- Imagens
+- Horários de funcionamento
+- Taxa de entrega
+- Tempo estimado de entrega
+- Percentual de comissão
+- Situação cadastral
+
+### Categoria
+
+- Identificador
+- Nome
+- Descrição
+- Situação
+
+### Produto
+
+- Identificador
+- Estabelecimento
+- Categoria
+- Nome
+- Descrição
+- Preço
+- Imagem
+- Disponibilidade
+
+### Pedido
+
+- Identificador
+- Cliente
+- Estabelecimento
+- Endereço de entrega
+- Telefone de contato
+- Forma de pagamento
+- Subtotal dos produtos
+- Taxa de entrega
+- Total do pedido
+- Percentual de comissão registrado
+- Valor da comissão
+- Status atual
+- Datas de criação e atualização
+
+### Item do pedido
+
+- Identificador
+- Pedido
+- Produto de referência
+- Nome do produto no momento da compra
+- Preço unitário registrado
+- Quantidade
+- Subtotal do item
+- Observações
+
+### Histórico do pedido
+
+- Identificador
+- Pedido
+- Status anterior
+- Novo status
+- Responsável pela alteração
+- Data e hora
+- Observação
+
+### Comissão
+
+- Identificador
+- Estabelecimento
+- Pedido de origem
+- Valor calculado
+- Situação
+- Data de geração
+- Data de pagamento ou baixa
+
+### Registro administrativo
+
+- Identificador
+- Usuário responsável
+- Tipo de ação
+- Registro afetado
+- Data e hora
+- Informações relevantes para auditoria
+
+Os dados de pagamento, endereço e contato deverão ter acesso restrito. O sistema não armazenará números completos de cartões nem credenciais bancárias dos clientes.
+
+---
+
+## 9. Arquitetura tecnológica proposta
+
+A arquitetura inicial será baseada em uma aplicação web única, organizada por módulos e conectada a um backend centralizado.
+
+**Frontend**
+
+- React
+- TypeScript
+- Vite
+- PWA com manifest e service worker
+
+**Backend e banco de dados**
+
+- Supabase
+- PostgreSQL
+- Autenticação de usuários
+- Políticas de acesso aos dados
+- Funções de backend para operações sensíveis
+
+**Hospedagem**
+
+- Serviço de hospedagem para o frontend
+- Infraestrutura gerenciada para banco e backend
+- Domínio próprio e HTTPS em produção
+
+As interfaces do cliente, do estabelecimento e do administrador poderão compartilhar o mesmo projeto, mas deverão ter rotas, componentes e permissões separados.
+
+A lógica de cálculo das comissões, validação de preços e alteração dos estados dos pedidos não deverá depender exclusivamente do frontend.
+
+---
+
+## 10. Escopo da primeira versão (MVP)
+
+A primeira versão deverá contemplar:
+
+- Cadastro e autenticação dos perfis necessários.
+- Cadastro e gerenciamento de estabelecimentos.
+- Cadastro e gerenciamento de produtos.
+- Catálogo público de estabelecimentos.
+- Busca e visualização dos cardápios.
+- Carrinho de compras.
+- Cadastro do endereço de entrega.
+- Seleção de Pix ou pagamento na entrega.
+- Registro e acompanhamento dos pedidos.
+- Painel de pedidos do estabelecimento.
+- Atualização dos estados dos pedidos.
+- Cálculo de comissão de 10%.
+- Relatório administrativo de vendas e comissões.
+- Registro de pagamentos de comissões.
+- Layout responsivo e instalação como PWA.
+- Controles de acesso, validações e backups.
+
+### Fora do escopo inicial
+
+- Aplicativo Android ou iOS nativo.
+- Gestão de entregadores próprios.
+- Rastreamento por GPS em tempo real.
+- Processamento de pagamentos pela plataforma.
+- Divisão automática de pagamentos.
+- Programa de fidelidade e cupons complexos.
+- Avaliações públicas e comentários.
+- Integração automática com sistemas de gestão dos restaurantes.
+- Chat interno entre cliente e estabelecimento.
+
+Esses recursos poderão ser avaliados após a validação do MVP.
+
+---
+
+## 11. Critérios de aceitação
+
+A primeira versão será considerada funcional quando os seguintes cenários forem validados:
+
+1. Um cliente consegue selecionar produtos e gerar um pedido válido.
+2. O estabelecimento correto recebe o pedido e consegue aceitá-lo ou recusá-lo.
+3. O cliente consegue consultar as atualizações do pedido.
+4. Os valores registrados permanecem consistentes mesmo após alterações posteriores no cardápio.
+5. Um pedido concluído de R$ 50,00 em produtos gera uma comissão de R$ 5,00 quando aplicada a taxa de 10%.
+6. A taxa de entrega não integra a base de cálculo padrão da comissão.
+7. Pedidos recusados não geram comissão definitiva.
+8. O estabelecimento consegue consultar somente os próprios pedidos e informações autorizadas.
+9. O administrador consegue consultar vendas e comissões por estabelecimento e período.
+10. O sistema impede que um usuário sem autorização altere pedidos ou valores de comissão.
+11. O sistema funciona nos principais navegadores móveis compatíveis e pode ser instalado como PWA.
+12. O procedimento de backup e recuperação dos dados foi testado.
+
+---
+
+## 12. Fases de desenvolvimento
+
+**Fase 1 — Especificação e modelagem**
+
+- Validar regras comerciais.
+- Elaborar casos de uso.
+- Criar o modelo entidade-relacionamento.
+- Definir permissões e transições de status.
+
+**Fase 2 — Estrutura do projeto**
+
+- Criar o projeto React com TypeScript e Vite.
+- Configurar o banco e a autenticação.
+- Definir a estrutura de rotas e componentes.
+- Configurar o ambiente de desenvolvimento.
+
+**Fase 3 — Gestão dos estabelecimentos**
+
+- Implementar cadastro, aprovação e gerenciamento de lojas.
+- Implementar categorias e produtos.
+
+**Fase 4 — Pedidos**
+
+- Implementar catálogo, carrinho e checkout.
+- Implementar recebimento e atualização dos pedidos.
+- Implementar validações e notificações.
+
+**Fase 5 — Comissões e administração**
+
+- Implementar cálculo de comissão.
+- Implementar relatórios e controle de repasses.
+- Implementar histórico e auditoria.
+
+**Fase 6 — Testes e publicação**
+
+- Testar permissões, pedidos e cálculos financeiros.
+- Testar a experiência em celulares e computadores.
+- Validar backup e recuperação.
+- Publicar a PWA em ambiente de produção.
+
+---
+
+## 13. Decisões pendentes antes do desenvolvimento
+
+Os pontos abaixo precisam ser definidos para evitar alterações estruturais durante a implementação:
+
+1. **Cadastro do cliente:** será obrigatório criar uma conta (nome, sobrenome, email e numero de telefone) por enquanto não precisa validar com codigo
+2. **Pix:** o cliente verá os dados de pagamento somente depois que o restaurante aceitar o pedido? Não
+3. **Cancelamentos:** até qual etapa o cliente poderá cancelar diretamente? Cancelamento somente em contato com o estabelecimento
+4. **Comissão:** o fechamento será semanal ou quinzenal, e qual será o prazo para pagamento? quinzenal
+5. **Entrega:** cada estabelecimento definirá sua própria taxa e área de atendimento? sim
+6. **Notificações:** o sistema começará com notificações dentro do painel e alerta sonoro, ou também utilizará notificações push?  ambos
+7. **Aprovação de lojas:** todos os estabelecimentos precisarão ser aprovados pelo administrador antes de aparecerem publicamente? Sim
+8. **Preços:** o sistema permitirá preços e taxas de entrega diferentes dos praticados no estabelecimento físico? Sim
+
+Essas decisões deverão ser registradas antes da implementação dos módulos diretamente afetados.
+
+---
+
+## 14. Resultado esperado
+
+Ao final do desenvolvimento, a plataforma deverá permitir que clientes encontrem e peçam alimentos de diferentes estabelecimentos em um único ambiente digital, enquanto cada restaurante mantém autonomia sobre seus preços, pagamentos, preparação e entrega.
+
+A plataforma terá controle sobre os pedidos realizados, calculará as comissões devidas e disponibilizará relatórios administrativos sem assumir a operação logística dos estabelecimentos.
+
+O projeto será desenvolvido de forma incremental, priorizando primeiro os recursos necessários para validar a operação comercial e evitando custos desnecessários antes da comprovação de demanda.
+
+
+Aqui está o seu prompt completamente estruturado, padronizado e otimizado para que a **IA de desenvolvimento (como a da Emergent)** entenda o contexto com clareza técnica e execute todas as alterações no projeto sem quebrar a estrutura existente.
+
+---
+
+# Prompt de Diretrizes e Especificações de Manutenção
+
+> **ATENÇÃO PARA A IA DE DESENVOLVIMENTO:**
+> Analise o código-fonte atual do projeto e implemente as correções, melhorias e regras de negócio descritas a seguir. **Não recrie o projeto do zero.** Trabalhe estritamente sobre a estrutura, o banco de dados, a arquitetura, as tecnologias e os componentes já existentes.
+> Antes de modificar qualquer arquivo, identifique o fluxo atual de execução do sistema, as dependências utilizadas e o mapeamento dos componentes de frontend, rotas de backend e entidades do banco de dados.
+
+---
+
+## 1. Validação de Campos e UX Geral
+
+* **Gênero:** Ajustar a validação para aceitar até 8 caracteres (alfanumérico, incluindo letras e números), conforme a regra do negócio.
+* **Mensagens de Erro:** Refatorar os alertas/feedbacks de validação em formulários. Exibir mensagens claras que identifiquem exatamente qual campo falhou e o motivo.
+* **Harmonização de Validações:** Garantir que as regras de validação aplicadas no frontend sejam 100% idênticas às aplicadas nas DTOs/schemas do backend.
+* **Campos Obrigatórios:** Identificar visualmente todos os campos obrigatórios utilizando o símbolo de asterisco (`*`).
+* **Segurança:** Não desativar nem remover validações de segurança para contornar erros de formulário.
+
+---
+
+## 2. Autenticação (Cadastro e Login Convencional)
+
+* **Análise do Problema:** Atualmente, a autenticação só funciona via OAuth (provedor externo). O fluxo por e-mail e senha está quebrando. Investigar a causa-raiz (integração entre frontend, backend, hash de senha e banco) e corrigir.
+* **Fluxo de Cadastro:**
+* Permitir criação de conta com e-mail e senha.
+* Validar sintaxe/formato de e-mail.
+* **Senha:** Mínimo de 8 caracteres, contendo ao menos 1 letra e 1 número. Remover qualquer restrição antiga que exija 15 ou mais caracteres.
+* Tratar e exibir erros para: e-mail inválido, e-mail já cadastrado, senha fora do padrão e erro interno no servidor.
+
+
+* **Fluxo de Login:**
+* Permitir autenticação por e-mail/senha salvos no banco.
+* Garantir a geração, armazenamento seguro (ex: HTTP-only Cookies ou LocalStorage/SessionStorage conforme arquitetura) e validação dos tokens/sessões (JWT ou equivalente).
+* Manter a autenticação via provedor externo (OAuth) funcionando sem conflito com o cadastro por senha.
+
+
+* **Segurança:**
+* Criptografar senhas obrigatoriamente utilizando a biblioteca/hash segura já adotada no projeto (ex: `bcrypt`, `argon2`). Nunca salvar em texto puro.
+* Não expor senhas, segredos ou tokens em logs do sistema.
+* Preservar fluxos de recuperação de senha e verificação de e-mail se já existirem no código.
+
+
+
+---
+
+## 3. Estabilidade de Sessão e Prevenção de Perda de Dados
+
+* **Análise do Problema:** O app atualiza sozinho após um tempo e apaga os dados que o usuário estava preenchendo.
+* **Investigação Técnica Necessária:**
+* Verificar tempo de expiração do token/sessão e implementar mecanismo de *refresh token* automático.
+* Verificar se há chamadas de *polling*, *swr*, *react-query* ou *effects* disparando re-renderizações ou reloads globais.
+* Verificar se há erros não capturados no React/Vue que forçam o *unmount* ou *remount* da árvore de componentes.
+
+
+* **Solução:**
+* Eliminar reloads e redirecionamentos involuntários.
+* Em formulários, salvar rascunhos em estado local/armazenamento temporário seguro para evitar perda de dados em falhas recuperáveis.
+* Se a sessão expirar, exibir um modal para reautenticação sem atualizar a página ou perder o progresso do formulário.
+
+
+
+---
+
+## 4. Painel do Lojista — Categorias, Cardápio e Configurações
+
+### 4.1. Categorias e Ordenação do Cardápio
+
+* Permitir a criação de categorias personalizadas e oferecer sugestões pré-definidas (Lanches, Bebidas, Saladas, Molhos, Acompanhamentos, Pizzas Salgadas, Pizzas Doces, etc.).
+* Impedir a criação de categorias duplicadas.
+* **Ordenação Natural do Cardápio:** Remover a ordenação alfabética automática do cardápio. Implementar ordenação manual/customizada ou sequencial natural por categoria (Exemplo: Lanches -> Acompanhamentos -> Molhos -> Bebidas).
+
+### 4.2. Imagem de Capa e Processamento de Mídia
+
+* Implementar upload e alteração de imagens de capa e de pratos.
+* Incluir preview em tempo real antes do salvamento, com opção de substituição ou remoção.
+
+### 4.3. Otimização e Compressão Automática de Imagens (Requisito Crítico)
+
+Adicionar um módulo de pré-processamento de imagens no frontend antes de enviar a foto para a API/Storage:
+
+* **Formato Alvo:** Converter todas as imagens enviadas para o formato **WebP** com 80% de qualidade.
+* **Redimensionamento:**
+* Fotos de Pratos (1:1): Redimensionar para no máximo $800 \times 800$ pixels (mínimo $600 \times 600$).
+* Banners/Capa (16:9): Redimensionar para no máximo $1200 \times 675$ pixels.
+
+
+* **Limite de Peso:** Garantir que o arquivo final comprimido fique no intervalo de **100 KB a 300 KB** (máximo absoluto de 200 KB para pratos).
+* Fazer essa conversão no próprio navegador do cliente no momento do upload.
+
+### 4.4. Padronização do Campo de Preço
+
+* Entrada no padrão da moeda brasileira (`R$ 0,00`).
+* Permitir digitação com vírgula decimal e formatar visualmente com duas casas decimais.
+* Tratar e converter corretamente a string com vírgula do frontend para tipo `float`/`decimal` no backend para gravação no banco sem erros de conversão.
+
+### 4.5. Produtos em Destaque
+
+* Permitir que o lojista selecione até **6 produtos** em destaque.
+* Exibição na interface: layout responsivo organizado em 2 linhas com 3 itens por linha (3x2).
+* Bloquear a seleção a partir do 7º item e exibir um feedback/alerta visual informando que o limite foi atingido.
+* Permitir remover um item do destaque para adicionar outro. Persistir a seleção no banco de dados.
+
+### 4.6. Tempo de Preparo
+
+* Expandir a lista de tempo de preparo para incluir opções superiores a 90 minutos: `90 min`, `120 min`, `150 min`, `180 min` e `Mais de 180 min`.
+* Permitir um campo numérico personalizado caso necessário.
+
+---
+
+## 5. Módulo de Endereços do Cliente
+
+Substituir o campo único de endereço por um formulário estruturado com campos separados:
+
+* **CEP** (com máscara `00000-000` e validação de formato).
+* **Rua / Logradouro** (obrigatório).
+* **Número** (obrigatório).
+* **Bairro** (obrigatório).
+* **Complemento** (opcional).
+* **Ponto de Referência** (opcional).
+
+### Integração e Migração:
+
+* Integrar com API de consulta de CEP (ex: ViaCEP) para autopreenchimento de Rua e Bairro ao digitar o CEP, mantendo os campos editáveis.
+* Atualizar o schema do banco de dados e as DTOs da API.
+* **Compatibilidade Retroativa:** Criar estratégia para não quebrar cadastros antigos com endereço em campo único (manter um fallback de leitura ou migração de dados sem perda de informações).
+
+---
+
+## 6. Regras de Negócio e Permissões do Sistema
+
+* **Cancelamento de Pedidos pelo Cliente:** O cliente só pode cancelar o pedido se o status atual do pedido **ainda não tiver entrado em "Em Preparação"** pelo restaurante.
+* **Administração — Busca de Usuários:** Adicionar um campo de busca/filtro funcional na aba de gerenciamento de usuários do painel Administrativo (filtrar por nome, e-mail, perfil ou status).
+* **Controle de Acesso (RBAC):** Preservar os níveis de acesso já configurados: `Administrador`, `Lojista` e `Cliente`. Impedir acesso a rotas não autorizadas.
+
+---
+
+## 7. Protocolo de Testes Obrigatórios
+
+Executar e validar a suíte de testes abaixo antes de concluir a entrega:
+
+1. **Autenticação:**
+* Cadastro válido vs. E-mail repetido vs. E-mail inválido.
+* Senha com 7 caracteres (deve falhar).
+* Senha com 8 caracteres contendo letras e números (deve passar).
+* Senha com 8 caracteres sem números (deve falhar).
+* Persistence da sessão e verificação do comportamento ao expirar.
+
+
+2. **Painel do Lojista:**
+* Criação e seleção de categorias.
+* Upload de imagem pesada (ex: PNG de 5MB) e verificação se foi convertida para WebP < 200KB e $800 \times 800$px.
+* Formatação e gravação do preço com vírgula (`R$ 12,50`).
+* Adicionar 6 destaques e tentar adicionar o 7º.
+* Seleção de tempo de preparo superior a 90 min.
+
+
+3. **Endereço:**
+* Preenchimento por CEP e salvamento de endereço com e sem complemento.
+* Validação da compatibilidade com endereços antigos.
+
+
+4. **Permissões e Regras:**
+* Tentar cancelar um pedido no status "Em Preparação" (deve proibir).
+* Testar a busca de usuários no painel de administração.
+
+
+
+---
+
+## 8. Relatório Final de Entrega
+
+Ao finalizar a implementação, apresente um relatório sintético estruturado contendo:
+
+1. Causas-raiz identificadas para as falhas de login/cadastro e para o reload automático da página.
+2. Relação de todos os arquivos modificados e criados.
+3. Descrição das alterações realizadas no Frontend, Backend e no Banco de Dados (scripts/migrations executados).
+4. Resultados dos testes obrigatórios executados.
+5. Limitações ou dependências pendentes de serviços externos (se houver).
+
+Ao clicar em acompanhar pedido no WhatsApp, um resumo do pedido deve ser gerado
+
+

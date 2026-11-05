@@ -1,0 +1,33 @@
+Delivery Local
+
+Projeto
+PedeUmTrem
+
+Resumo
+- Projeto novo, do zero: PWA de delivery local (marketplace de restaurantes, lanchonetes, pizzarias, açaiterias) com perfis Cliente, Estabelecimento e Administrador
+
+Detalhes
+Nome do app definido por ele: PedeUmTrem (o nome de trabalho anterior era "Rango")
+Modelo de negócio: comissão de 10% por pedido concluído, sobre o valor dos produtos (sem taxa de entrega)
+Pagamento direto ao estabelecimento por Pix ou na entrega; a plataforma não processa pagamentos nem mantém saldo na v1
+Stack: React + Vite + TypeScript no Cloudflare Pages, Supabase (PostgreSQL, Auth, Storage), GitHub com deploy automático; custo zero e controle do código no VS Code; dispensou os Cloudflare Workers
+Backup do banco: vai usar pg_dump por conta própria por enquanto; não quer o requisito de backup no documento
+Decisão: cliente cria conta com nome, sobrenome, e-mail e telefone, sem validação por código por ora
+Decisão: fechamento de comissões quinzenal
+Decisão: cada estabelecimento define sua taxa e área de entrega; preços e taxas podem diferir do estabelecimento físico
+Decisão: notificações no painel com alerta sonoro e também push
+Decisão: todo estabelecimento precisa ser aprovado pelo administrador antes de aparecer publicamente
+Ao clicar em "acompanhar pedido" no WhatsApp, deve ser gerado um resumo do pedido
+Pediu que eu decidisse as inconsistências do documento (cancelamento, Pix, campo gênero etc.) e gerasse o documento revisado v1.1
+Está considerando incluir o entregador como novo ator: ele se cadastra, recebe notificação de entrega, aceita a corrida e registra a sua parte (preço padrão de 2,50$ por corrida, a plataforma retém 0,50$); ainda avaliando se entra
+Motivo da ideia do entregador: na cidade dele um concorrente implementou entrega com entregadores a custo baixo (compensa para entregador e cliente) e está "bombando"; ele quer abrir concorrência com eles
+Modelo do concorrente na cidade dele: o comércio notifica uma central de entregadores, que veem a disponibilidade e enviam um motoboy; cobram 3$ por viagem (custo do cliente) e repassam 2,50$ ao motoboy; informal, sem burocracia; repetir a viagem custa mais 3$; o comércio acerta quinzenalmente com o app deles; a maioria dos comércios que aderiram não tem entregador; até farmácias começaram a usar entregadores autônomos; lá não existe marketplace de restaurantes
+Gostou do modelo híbrido (restaurante com entrega própria ou entregadores da plataforma); quer algo simples, sem processar pagamentos, com acerto quinzenal igual ao dos restaurantes
+Processo escolhido, em 11 etapas: 1 definição do projeto, 2 entrevista e levantamento, 3 DRS, 4 validação dos requisitos, 5 modelagem e prototipação (fluxogramas, casos de uso, telas e navegação), 6 projeto técnico, 7 planejamento do desenvolvimento, 8 desenvolvimento incremental por módulos, 9 testes e validação, 10 implantação, 11 monitoramento e manutenção; etapas 3 e 4 concluídas (DRS validado), próxima é a 5
+Confirmou: etapa 5 em documento novo com casos de uso, fluxogramas e mapa de telas, seguida de protótipo clicável (prioridade: painel de pedidos do lojista e checkout do cliente)
+No checkout, o pagamento na entrega deve definir se é cartão ou dinheiro; se for dinheiro, o cliente informa o troco
+Próximo passo é o protótipo clicável para validação
+No painel do lojista, pedidos novos devem entrar no fim da lista (ordem de chegada), e não no topo
+Vai desenhar a interface no Figma e pediu um prompt para a IA elaborar as 31 telas
+Pediu para seguir para a próxima parte do projeto (etapa 6, projeto técnico: arquitetura, banco de dados, segurança e integrações)
+Quer a comissão alterável (padrão e exceções por estabelecimento), configurada pelo administrador
